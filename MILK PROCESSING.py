@@ -37,6 +37,7 @@ def write_virtual_pin_handler(pin, value):
     Unit = "Bottle" if(unit_selected==1) else "Box"
     MilkType = "UHT" if(unit_selected==0) else "Pasterized"
     print(f"{MilkType} selected in {Unit} unit")
+    Unit = "Bottles" if(unit_selected=="Bottle") else "Boxes"
     blynk.set_property(pin, 'color', '#32CD32')
 
 
@@ -205,12 +206,16 @@ def Presentation():
             time_unit[0] = time_unit[0]+"s"
         if(minute>=2):
             time_unit[1] = time_unit[1]+"s"
+        if(sec>=2):
+            time_unit[2] = time_unit[2]+"s"
         TimeEx = str(hr) + time_unit[0]+" "+str(minute)+" "+ time_unit[1] +" "+ str(sec)+time_unit[2]
     elif TimeEx >= 60:
-        minute = int((TimeEx-hr*3600)//60)
+        minute = int((TimeEx)//60)
         sec = int(TimeEx%60)
         if(minute>=2):
             time_unit[1] = time_unit[1]+"s"
+        if(sec>=2):
+            time_unit[2] = time_unit[2]+"s"
         TimeEx = str(minute)+ time_unit[1] +" "+ str(sec)+time_unit[2]
     else:
         TimeEx = str(TimeEx)+time_unit[2]
